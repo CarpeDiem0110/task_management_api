@@ -1,4 +1,16 @@
+const ALLOWED_FIELDS = ["title", "completed"];
+
 exports.validateCreateTask = (req, res, next) => {
+  const extraFields = Object.keys(req.body).filter(
+    (key) => !ALLOWED_FIELDS.includes(key)
+  );
+
+  if (extraFields.length > 0) {
+    return res.status(400).json({
+      message: `Unknown field(s): ${extraFields.join(", ")}`,
+    });
+  }
+
   const { title, completed } = req.body;
 
   if (!title || typeof title !== "string") {
@@ -17,6 +29,16 @@ exports.validateCreateTask = (req, res, next) => {
 };
 
 exports.validateUpdateTask = (req, res, next) => {
+  const extraFields = Object.keys(req.body).filter(
+    (key) => !ALLOWED_FIELDS.includes(key)
+  );
+
+  if (extraFields.length > 0) {
+    return res.status(400).json({
+      message: `Unknown field(s): ${extraFields.join(", ")}`,
+    });
+  }
+
   const { title, completed } = req.body;
 
   if (title !== undefined && typeof title !== "string") {
