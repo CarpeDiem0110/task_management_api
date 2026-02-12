@@ -10,3 +10,15 @@ exports.createTask = ({ title, completed }) => {
 exports.getTasks = () => {
   return taskStore.findAll();
 };
+
+exports.getTaskById = (id) => {
+  return taskStore.findById(id);
+};
+
+exports.updateTask = (id, { title, completed }) => {
+  return taskStore.update(id, { title, completed });
+};
+
+exports.deleteTask = (id) => {
+  return taskStore.remove(id);
+};
